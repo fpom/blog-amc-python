@@ -1,0 +1,184 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[bloc]{automultiplechoice}
+\usepackage{multicol}
+
+%%
+%%
+
+\def\word #1{{\color{blue!40!black}{\texttt{#1}}}}
+\def\hash #1{{\colorbox{red!10!white}{\color{red!30!black}\texttt{#1}}}}
+\def\WORD[#1]{\expandafter\csname W#1\endcsname}
+\def\HASH[#1]{\expandafter\csname H#1\endcsname}
+\def\SPARE[#1]{\expandafter\csname #1\endcsname}
+
+%%
+%%
+
+\makeatletter
+\def\SujetNum{\the\AMCid@etud}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\baremeDefautM{e=0,v=0,p=0,formula=(NBC+NMC > 0 ? (NBC - NMC)/NB : 0)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\element{CRY}{
+  \begin{questionmult}{C1}
+    In the example table, which operations are necessarily performed to search for~\HASH[0,2] (line~0)?
+    \begin{multicols}{3}
+      \AMCBoxedAnswers
+      \begin{reponses}
+        \correctchoice{$r_2(\HASH[0,2])$}
+        \correctchoice{$h(\WORD[0,0])$}
+        \correctchoice{$r_0(\HASH[0,0])$}
+        \correctchoice{$h(\WORD[0,1])$}
+        \correctchoice{$r_1(\HASH[0,1])$}
+        \wrongchoice{$r_0(\HASH[0,1])$}
+        \wrongchoice{$r_0(\HASH[0,2])$}
+        \wrongchoice{$r_1(\HASH[0,0])$}
+        \wrongchoice{$r_1(\HASH[0,2])$}
+        \wrongchoice{$r_2(\HASH[0,0])$}
+        \wrongchoice{$r_2(\HASH[0,1])$}
+        \wrongchoice{$h(\WORD[0,2])$}
+        \wrongchoice{$h(\WORD[0,3])$}
+        \wrongchoice{$h(\HASH[0,2])$}
+        \wrongchoice{$r_0(\WORD[0,0])$}
+        \wrongchoice{$r_0(\SPARE[H,0])$}
+        \wrongchoice{$r_1(\SPARE[H,1])$}
+        \wrongchoice{$h(\SPARE[W,0])$}
+      \end{reponses}
+    \end{multicols}
+  \end{questionmult}
+}
+
+\element{CRY}{
+  \begin{questionmult}{C2}
+    In the example table, which operations are necessarily performed to search for~\HASH[1,1] (line~1)?
+    \begin{multicols}{3}
+      \AMCBoxedAnswers
+      \begin{reponses}
+        \correctchoice{$r_2(\HASH[1,1])$}
+        \correctchoice{$r_1(\HASH[1,1])$}
+        \correctchoice{$h(\WORD[1,2])$}
+        \correctchoice{$r_2(\HASH[1,2])$}
+        \correctchoice{$h(\WORD[1,0])$}
+        \correctchoice{$r_0(\HASH[1,0])$}
+        \wrongchoice{$r_0(\HASH[1,1])$}
+        \wrongchoice{$r_0(\HASH[1,2])$}
+        \wrongchoice{$r_1(\HASH[1,0])$}
+        \wrongchoice{$r_1(\HASH[1,2])$}
+        \wrongchoice{$r_2(\HASH[1,0])$}
+        \wrongchoice{$h(\WORD[1,1])$}
+        \wrongchoice{$h(\WORD[1,3])$}
+        \wrongchoice{$h(\HASH[1,1])$}
+        \wrongchoice{$r_1(\WORD[1,2])$}
+        \wrongchoice{$r_1(\SPARE[H,2])$}
+        \wrongchoice{$h(\SPARE[W,1])$}
+        \wrongchoice{$h(\SPARE[W,2])$}
+      \end{reponses}
+    \end{multicols}
+  \end{questionmult}
+}
+
+\element{CRY}{
+  \begin{questionmult}{C3}
+    In the example table, which operations are necessarily performed to search for~\HASH[2,0] (line~2)?
+    \begin{multicols}{3}
+      \AMCBoxedAnswers
+      \begin{reponses}
+        \correctchoice{$r_2(\HASH[2,0])$}
+        \correctchoice{$r_1(\HASH[2,0])$}
+        \correctchoice{$r_0(\HASH[2,0])$}
+        \correctchoice{$h(\WORD[2,1])$}
+        \correctchoice{$r_1(\HASH[2,1])$}
+        \correctchoice{$h(\WORD[2,2])$}
+        \correctchoice{$r_2(\HASH[2,2])$}
+        \wrongchoice{$r_0(\HASH[2,1])$}
+        \wrongchoice{$r_0(\HASH[2,2])$}
+        \wrongchoice{$r_1(\HASH[2,2])$}
+        \wrongchoice{$r_2(\HASH[2,1])$}
+        \wrongchoice{$h(\WORD[2,0])$}
+        \wrongchoice{$h(\WORD[2,3])$}
+        \wrongchoice{$h(\HASH[2,1])$}
+        \wrongchoice{$r_2(\WORD[2,0])$}
+        \wrongchoice{$r_2(\SPARE[H,3])$}
+        \wrongchoice{$r_0(\SPARE[H,4])$}
+        \wrongchoice{$h(\SPARE[W,3])$}
+      \end{reponses}
+    \end{multicols}
+  \end{questionmult}
+}
+
+\element{CRY}{
+  \begin{questionmult}{C4}
+    In the example table, which operations are necessarily performed to search for~\SPARE[H,5] (not in the table)?
+    \begin{multicols}{3}
+      \AMCBoxedAnswers
+      \begin{reponses}
+        \correctchoice{$r_2(\SPARE[H,5])$}
+        \correctchoice{$r_1(\SPARE[H,5])$}
+        \correctchoice{$r_0(\SPARE[H,5])$}
+        \wrongchoice{$r_0(\HASH[3,0])$}
+        \wrongchoice{$r_0(\HASH[3,1])$}
+        \wrongchoice{$r_0(\HASH[3,2])$}
+        \wrongchoice{$r_1(\HASH[3,0])$}
+        \wrongchoice{$r_1(\HASH[3,1])$}
+        \wrongchoice{$r_1(\HASH[3,2])$}
+        \wrongchoice{$r_2(\HASH[3,0])$}
+        \wrongchoice{$r_2(\HASH[3,1])$}
+        \wrongchoice{$r_2(\HASH[3,2])$}
+        \wrongchoice{$h(\WORD[3,0])$}
+        \wrongchoice{$h(\WORD[3,1])$}
+        \wrongchoice{$h(\WORD[3,2])$}
+        \wrongchoice{$h(\WORD[3,3])$}
+        \wrongchoice{$h(\HASH[3,2])$}
+        \wrongchoice{$r_2(\WORD[3,0])$}
+      \end{reponses}
+    \end{multicols}
+  \end{questionmult}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{copieexamen}[10]
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{center}
+    \Large\textbf{SAMPLE EXAM $\sharp\SujetNum$}
+  \end{center}
+
+  \edef\TEX{{inc/C\SujetNum.tex}}
+  \expandafter\input\TEX
+
+  \noindent
+  Explain here what is a rainbow table, with a simple example provided below.
+  Example of a chain: the row starting at \WORD[0,0] and ending with \WORD[0,3].
+  Explain the search algorithm.
+
+  \begin{center}
+    \edef\PDF{{inc/C\SujetNum.pdf}}
+    \def\incpdf{\includegraphics[angle=90]}
+    \expandafter\incpdf\PDF
+  \end{center}
+
+  \shufflegroup{CRY}
+  \restituegroupe{CRY}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{copieexamen}
+
+\end{document}
