@@ -1,42 +1,60 @@
 import hashlib, random, string, tempfile, pathlib, subprocess, shutil
 
+# don't forget to intialise the random seed with a constant
 random.seed(12345)
 
+# a set of words of lenth 2 to 8, without the plural forms to avoid confusion
 WORDS = set(word for word in (l.strip() for l in open("words.txt"))
             if 3 <= len(word) <= 8
             and word[-1] != "s")
 
 class RainbowTable (object) :
+    # mocked rainbow table, like the example in Wikipedia
     def __init__ (self, tlen=10, clen=3) :
+        # tlen = number of rows
+        # clen = number of reduce fonctions (so #rows = 2 * clen + 1)
         self.tlen = tlen
         self.clen = clen
+        # a salt for hashing so two students won't have the same hash function
         self.salt = "".join(random.sample(string.printable, 6))
+        # the words in the table
+        # note how the set is sorted to a list to avoid non deterministic executions
         self.words = random.sample(list(sorted(WORDS)), tlen * (clen + 1))
+        # a set of spare words not in the table
         self.spare = random.sample(list(sorted(WORDS - set(self.words))), tlen)
+        # the chains stored as {'first word' : [content of the chain]}
         self.chains = {}
+        # the reduction function, there is only one even if we pretend the contrary
         self.reduce = {}
+        # generate the cgains
         for i in range(tlen) :
             ch = self._chain(self.words[i::tlen])
             self.chains[ch[0]] = ch
-        self.table = [(start, chain[-1]) for start, chain in self.chains.items()]
-        self._t = {b: a for a, b in self.table}
     def h (self, w) :
+        # hash function: salted SHA256 keeping only the last 6 chars of the hexdigest
         return hashlib.sha256((w + self.salt).encode("utf-8")).hexdigest()[-6:].upper()
     def r (self, h) :
+        # reduce fonction, statically defined
         return self.reduce[h]
     def _chain (self, words) :
+        # generate a chain including the provided words
         assert len(words) == self.clen + 1, words
         last = words[-1]
         chain = []
         for i, w in enumerate(words) :
+            # insert a word in the chain
             chain.append(w)
             if w != last :
+                # if this is not the last one, insert a hash
                 h = self.h(w)
                 chain.append(h)
+                # detect collision that would cause inconsistencies
                 assert h not in self.reduce
+                # assign reduction function so it yields the next word
                 self.reduce[h] = words[i+1]
         return chain
     def table_tex (self, out) :
+        # save the table as a LaTeX tabular
         out.write(r"\begin{tabular}{|c>{\columncolor{yellow!15!white}}%"
                   r"s>{\columncolor{green!15!white}}c|}" % ("c" * (4*self.clen)))
         out.write("\n\\hline &")
@@ -59,6 +77,7 @@ class RainbowTable (object) :
             out.write(r"\bigstrut\\" + "\n")
         out.write(r"\hline\end{tabular}" + "\n")
     def table_pdf (self, path) :
+        # generate a PDF using latex
         with tempfile.TemporaryDirectory() as tmp :
             texpath = pathlib.Path(tmp) / "rt.tex"
             with open(texpath, "w") as tex :
@@ -79,6 +98,7 @@ class RainbowTable (object) :
                                     stderr=subprocess.STDOUT)
             shutil.move(texpath.with_suffix(".pdf"), path)
     def macros (self, out) :
+        # save the cells of the table
         for line, chain in enumerate(self.chains.values()) :
             for row, txt in enumerate(chain[0::2]) :
                 out.write(fr"\expandafter\def\csname W{line},{row}\endcsname"
@@ -95,6 +115,7 @@ class RainbowTable (object) :
                       fr"{{\hash{{{h}}}}}" "\n")
 
 if __name__ == "__main__" :
+    # generate as many tables as needed
     import tqdm
     inc = pathlib.Path("../inc")
     inc.mkdir(exist_ok=True)
